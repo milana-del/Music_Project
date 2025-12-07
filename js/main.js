@@ -135,42 +135,7 @@ class ChaseAtlanticApp {
         this.setupMusicKeyboardShortcuts();
     }
 
-    setupMusicKeyboardShortcuts() {
-        document.addEventListener('keydown', (e) => {
-            // Only trigger if not focused on input elements
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-            
-            const musicPlayer = window.musicPlayerInstance;
-            if (!musicPlayer) return;
-            
-            switch(e.code) {
-                case 'Space':
-                    e.preventDefault();
-                    if (musicPlayer.togglePlay) {
-                        musicPlayer.togglePlay();
-                    }
-                    break;
-                case 'ArrowLeft':
-                    if (e.altKey && musicPlayer.previousTrack) {
-                        e.preventDefault();
-                        musicPlayer.previousTrack();
-                    }
-                    break;
-                case 'ArrowRight':
-                    if (e.altKey && musicPlayer.nextTrack) {
-                        e.preventDefault();
-                        musicPlayer.nextTrack();
-                    }
-                    break;
-                case 'KeyM':
-                    if (musicPlayer.toggleMute) {
-                        e.preventDefault();
-                        musicPlayer.toggleMute();
-                    }
-                    break;
-            }
-        });
-    }
+   
 
     setupGalleryIntegration() {
         // Add smooth animation for gallery section

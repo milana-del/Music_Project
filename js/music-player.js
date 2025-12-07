@@ -142,33 +142,48 @@ class MusicPlayer {
             this.seek(percent * 100);
         });
 
-        // Клавиши управления
-        document.addEventListener('keydown', (e) => {
-            if (e.target.tagName === 'INPUT') return;
-            
-            switch(e.code) {
-                case 'Space':
-                    e.preventDefault();
-                    this.togglePlay();
-                    break;
-                case 'ArrowLeft':
-                    e.preventDefault();
-                    this.seek(Math.max(0, (this.audio.currentTime / this.audio.duration) * 100 - 5));
-                    break;
-                case 'ArrowRight':
-                    e.preventDefault();
-                    this.seek(Math.min(100, (this.audio.currentTime / this.audio.duration) * 100 + 5));
-                    break;
-                case 'ArrowUp':
-                    e.preventDefault();
-                    this.setVolume(Math.min(100, this.volume * 100 + 10));
-                    break;
-                case 'ArrowDown':
-                    e.preventDefault();
-                    this.setVolume(Math.max(0, this.volume * 100 - 10));
-                    break;
+      // Клавиши управления
+document.addEventListener('keydown', (e) => {
+    // Проверяем ВСЕ элементы ввода и редактирования
+    if (e.target.matches('input, textarea, select, button, [contenteditable="true"]')) {
+        return; // Не блокируем клавиши в элементах ввода
+    }
+    
+    switch(e.code) {
+        case 'Space':
+            e.preventDefault();
+            this.togglePlay();
+            break;
+        case 'ArrowLeft':
+            if (e.altKey) {
+                e.preventDefault();
+                this.previousTrack();
             }
-        });
+            break;
+        case 'ArrowRight':
+            if (e.altKey) {
+                e.preventDefault();
+                this.nextTrack();
+            }
+            break;
+        case 'ArrowUp':
+            if (e.altKey) {
+                e.preventDefault();
+                this.setVolume(Math.min(100, this.volume * 100 + 10));
+            }
+            break;
+        case 'ArrowDown':
+            if (e.altKey) {
+                e.preventDefault();
+                this.setVolume(Math.max(0, this.volume * 100 - 10));
+            }
+            break;
+        case 'KeyM':
+            e.preventDefault();
+            this.toggleMute();
+            break;
+    }
+});
     }
 
     renderPlaylist() {
