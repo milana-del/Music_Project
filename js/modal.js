@@ -16,7 +16,6 @@ class ContactModal {
     }
 
     setupEventListeners() {
-        // Open modal buttons
         this.contactBtn.addEventListener('click', (e) => {
             e.preventDefault();
             this.openModal();
@@ -27,17 +26,14 @@ class ContactModal {
             this.openModal();
         });
 
-        // Close modal
         this.modalClose.addEventListener('click', () => this.closeModal());
 
-        // Close modal on background click
         this.modal.addEventListener('click', (e) => {
             if (e.target === this.modal) {
                 this.closeModal();
             }
         });
 
-        // Close modal with Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && this.modal.classList.contains('active')) {
                 this.closeModal();
@@ -46,7 +42,6 @@ class ContactModal {
     }
 
     setupLocalStorage() {
-        // Restore form data from localStorage
         const savedData = localStorage.getItem('contactFormData');
         if (savedData) {
             try {
@@ -57,7 +52,6 @@ class ContactModal {
             }
         }
 
-        // Save form data on input
         const form = document.getElementById('modal-contact-form');
         form.addEventListener('input', () => this.saveFormData());
     }
@@ -66,35 +60,29 @@ class ContactModal {
         if (this.isAnimating) return;
         
         this.isAnimating = true;
-        this.modal.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
-        
-        // Add to browser history
-        window.history.pushState({ modalOpen: true }, '', '#contact-modal');
-        
+        this.modal.style.display = 'block';
         setTimeout(() => {
-            this.isAnimating = false;
-            // Focus on first input
-            const firstInput = this.modal.querySelector('input, textarea');
-            if (firstInput) firstInput.focus();
-        }, 300);
+            this.modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            setTimeout(() => {
+                this.isAnimating = false;
+                const firstInput = this.modal.querySelector('input, textarea');
+                if (firstInput) firstInput.focus();
+            }, 300);
+        }, 10);
     }
 
     closeModal() {
         if (this.isAnimating) return;
         
         this.isAnimating = true;
-        this.modal.classList.add('closing');
+        this.modal.classList.remove('active');
         
         setTimeout(() => {
-            this.modal.classList.remove('active', 'closing');
-            document.body.style.overflow = ''; // Restore scrolling
+            this.modal.style.display = 'none';
+            document.body.style.overflow = '';
             this.isAnimating = false;
-            
-            // Remove from browser history if we added it
-            if (window.history.state?.modalOpen) {
-                window.history.back();
-            }
         }, 300);
     }
 
@@ -124,7 +112,7 @@ class ContactModal {
     }
 }
 
-// Initialize modal
+// Инициализация модального окна
 document.addEventListener('DOMContentLoaded', () => {
     new ContactModal();
 });

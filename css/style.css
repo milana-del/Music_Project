@@ -108,7 +108,7 @@ h1, h2, h3, h4, h5, h6 {
     );
 }
 
-/* Navigation */
+/* НАВИГАЦИЯ - ИСПРАВЛЕННАЯ */
 .navbar {
     position: fixed;
     top: 0;
@@ -148,6 +148,7 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--light-text);
 }
 
+/* Основное меню */
 .nav-menu {
     display: flex;
     list-style: none;
@@ -155,70 +156,73 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
 }
 
+.nav-item {
+    position: relative;
+}
+
 .nav-link {
     color: var(--light-text);
     text-decoration: none;
     font-weight: 500;
     transition: var(--transition);
-    position: relative;
+    padding: 0.5rem 0;
+    display: block;
 }
 
 .nav-link:hover {
     color: var(--primary-color);
 }
 
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--primary-color);
-    transition: var(--transition);
-}
-
-.nav-link:hover::after {
-    width: 100%;
-}
-
-/* Dropdown Menu */
+/* Стили для выпадающего меню - РАБОТАЮЩИЕ */
 .dropdown {
     position: relative;
 }
 
-.dropdown-menu {
+.dropdown-btn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dropdown-content {
     position: absolute;
     top: 100%;
     left: 0;
     background: var(--dark-bg);
     min-width: 200px;
-    padding: 1rem 0;
-    border-radius: var(--border-radius);
+    border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
     opacity: 0;
     visibility: hidden;
     transform: translateY(10px);
     transition: var(--transition);
-    list-style: none;
+    padding: 0.5rem 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.dropdown:hover .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+/* Показывать выпадающее меню при наведении на десктопе */
+@media (min-width: 769px) {
+    .dropdown:hover .dropdown-content {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
 }
 
-.dropdown-link {
-    display: block;
-    padding: 0.5rem 1.5rem;
+/* Ссылки внутри выпадающего меню */
+.dropdown-content a {
     color: var(--light-text);
+    padding: 0.75rem 1.5rem;
     text-decoration: none;
+    display: block;
     transition: var(--transition);
+    font-size: 0.95rem;
 }
 
-.dropdown-link:hover {
-    background: rgba(138, 43, 226, 0.1);
+.dropdown-content a:hover {
+    background: rgba(138, 43, 226, 0.2);
     color: var(--primary-color);
 }
 
@@ -238,12 +242,13 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
 }
 
-/* Hamburger Menu */
+/* Гамбургер меню для мобильных */
 .hamburger {
     display: none;
     flex-direction: column;
     cursor: pointer;
     gap: 4px;
+    z-index: 1002;
 }
 
 .bar {
@@ -440,6 +445,85 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.2);
 }
 
+/* Стили для чекбокса */
+.checkbox-group {
+    margin: 1.5rem 0;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    position: relative;
+    padding-left: 35px;
+    user-select: none;
+    color: var(--gray-text);
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.checkbox-label input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.checkbox-label:hover input ~ .checkmark {
+    border-color: var(--primary-color);
+}
+
+.checkbox-label input:checked ~ .checkmark {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-label input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkbox-label .checkmark:after {
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-text {
+    flex: 1;
+}
+
+.checkbox-text a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.checkbox-text a:hover {
+    text-decoration: underline;
+}
+
 .submit-btn {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: var(--light-text);
@@ -572,7 +656,7 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--gray-text);
 }
 
-/* Responsive Design */
+/* Мобильная версия */
 @media (max-width: 768px) {
     .section {
         padding: 60px 0;
@@ -590,31 +674,36 @@ h1, h2, h3, h4, h5, h6 {
         font-size: 1.2rem;
     }
     
+    /* Мобильное меню */
     .nav-menu {
         position: fixed;
-        top: 70px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 70px);
+        top: 0;
+        right: -100%;
+        width: 80%;
+        height: 100vh;
         background: var(--dark-bg);
         flex-direction: column;
         justify-content: flex-start;
-        align-items: center;
-        padding: 2rem 0;
+        align-items: flex-start;
+        padding: 100px 30px 30px;
         transition: var(--transition);
-        gap: 1rem;
+        gap: 1.5rem;
+        z-index: 1000;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
     }
     
     .nav-menu.active {
-        left: 0;
+        right: 0;
     }
     
     .hamburger {
         display: flex;
+        position: relative;
+        z-index: 1001;
     }
     
     .hamburger.active .bar:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
+        transform: rotate(45deg) translate(6px, 6px);
     }
     
     .hamburger.active .bar:nth-child(2) {
@@ -622,17 +711,33 @@ h1, h2, h3, h4, h5, h6 {
     }
     
     .hamburger.active .bar:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
+        transform: rotate(-45deg) translate(6px, -6px);
     }
     
-    .dropdown-menu {
+    /* Выпадающее меню на мобильных */
+    .dropdown-content {
         position: static;
         opacity: 1;
         visibility: visible;
         transform: none;
         background: transparent;
         box-shadow: none;
-        padding: 0.5rem 0 0 1rem;
+        border: none;
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        display: block !important;
+    }
+    
+    .dropdown.active .dropdown-content {
+        max-height: 300px;
+        margin-top: 10px;
+        padding-left: 20px;
+    }
+    
+    .dropdown-content a {
+        padding: 0.5rem 0;
     }
     
     .stats {
@@ -647,5 +752,9 @@ h1, h2, h3, h4, h5, h6 {
     .discography-table th,
     .discography-table td {
         padding: 0.5rem;
+    }
+    
+    .checkbox-label {
+        font-size: 0.9rem;
     }
 }
