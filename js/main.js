@@ -131,8 +131,7 @@ class ChaseAtlanticApp {
             musicObserver.observe(musicSection);
         }
         
-        // Add keyboard shortcuts for music player
-        this.setupMusicKeyboardShortcuts();
+        
     }
 
    
