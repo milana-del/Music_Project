@@ -1,7 +1,7 @@
-// Main JavaScript file - УПРОЩЕННАЯ РАБОЧАЯ ВЕРСИЯ
+// Main JavaScript file 
 document.addEventListener('DOMContentLoaded', function() {
     
-    // ============= ВЫПАДАЮЩЕЕ МЕНЮ =============
+    
     const dropdowns = document.querySelectorAll('.dropdown');
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // ============= МОДАЛЬНОЕ ОКНО =============
+   
     const contactBtn = document.getElementById('contact-btn');
     const heroContactBtn = document.getElementById('hero-contact-btn');
     const modal = document.getElementById('contactModal');
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // ============= ПЛАВАЮЩАЯ НАВИГАЦИЯ =============
+    
     window.addEventListener('scroll', function() {
         const navbar = document.querySelector('.navbar');
         if (window.scrollY > 100) {
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // ============= ПЛАВНАЯ ПРОКРУТКА =============
+    
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             // Пропускаем ссылки выпадающего меню
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // ============= АДАПТАЦИЯ ПРИ ИЗМЕНЕНИИ РАЗМЕРА ОКНА =============
+    
     window.addEventListener('resize', function() {
         // Закрываем все меню при изменении размера окна
         if (window.innerWidth > 768) {
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
     
-    // ============= ВИДЕО ЗАГОЛОВКА =============
+    
     const video = document.getElementById('headerVideo');
     if (video) {
         video.playbackRate = 0.8;
